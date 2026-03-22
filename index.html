@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>हिन्दू कैलेंडर 2026 - पंचांग और राशिफल</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff9933;
+            --secondary-color: #b35900;
+            --bg-color: #fff5e6;
+            --text-dark: #333;
+        }
+
+        body {
+            font-family: 'Hind', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-dark);
+            direction: ltr;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 15px;
+        }
+
+        /* Calendar Styles */
+        .calendar-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .calendar-header button {
+            background: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+        }
+
+        .day-name {
+            background: #eee;
+            padding: 10px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .day {
+            padding: 15px 5px;
+            border: 1px solid #f0f0f0;
+            cursor: pointer;
+            min-height: 60px;
+            transition: 0.3s;
+        }
+
+        .day:hover {
+            background-color: #fff0db;
+        }
+
+        .day.today {
+            background-color: #ffcc00;
+            font-weight: bold;
+        }
+
+        .day.holiday {
+            color: red;
+        }
+
+        .festival-tag {
+            font-size: 0.7rem;
+            display: block;
+            color: #b35900;
+            margin-top: 5px;
+        }
+
+        /* Panchang & Rashifal Sections */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 5px;
+        }
+
+        .panchang-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted #ccc;
+        }
+
+        .rashifal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .rashi-box {
+            background: #fffaf0;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 3px solid var(--primary-color);
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>हिन्दू कैलेंडर 2026</h1>
+    <p id="current-date-display"></p>
+</header>
+
+<div class="container">
+    
+    <!-- Calendar Section -->
+    <div class="calendar-card">
+        <div class="calendar-header">
+            <button onclick="prevMonth()">पिछला</button>
+            <h2 id="month-year">मार्च 2026</h2>
+            <button onclick="nextMonth()">अगला</button>
+        </div>
+        <div class="grid-container" id="calendar-grid">
+            <!-- Days will be injected here -->
+        </div>
+    </div>
+
+    <div class="info-grid">
+        <!-- Daily Panchang -->
+        <div class="card">
+            <h3>दैनिक पंचांग (<span id="p-date">22 मार्च 2026</span>)</h3>
+            <div id="panchang-content">
+                <div class="panchang-item"><span>विक्रम संवत:</span> <b>2082</b></div>
+                <div class="panchang-item"><span>मास:</span> <b id="p-month">चैत्र</b></div>
+                <div class="panchang-item"><span>पक्ष:</span> <b id="p-paksha">शुक्ल पक्ष</b></div>
+                <div class="panchang-item"><span>तिथि:</span> <b id="p-tithi">चतुर्थी</b></div>
+                <div class="panchang-item"><span>नक्षत्र:</span> <b id="p-nakshatra">भरणी</b></div>
+                <div class="panchang-item"><span>सूर्योदय:</span> <b>06:21 AM</b></div>
+                <div class="panchang-item"><span>सूर्यास्त:</span> <b>06:35 PM</b></div>
+                <div class="panchang-item" style="color: red;"><span>राहुकाल:</span> <b>04:30 - 06:00 PM</b></div>
+            </div>
+        </div>
+
+        <!-- Daily Rashifal -->
+        <div class="card">
+            <h3>आज का राशिफल</h3>
+            <div class="rashifal-grid" id="rashifal-content">
+                <!-- Rashi items will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Festival List -->
+    <div class="card" style="margin-top: 20px;">
+        <h3>प्रमुख त्यौहार 2026</h3>
+        <ul id="festival-list" style="columns: 2;">
+            <!-- Festivals will be injected here -->
+        </ul>
+    </div>
+
+</div>
+
+<div class="footer">
+    © 2026 हिन्दू कैलेंडर डिजिटल पंचांग | जय श्री राम
+</div>
+
+<script>
+    // Data for 2026
+    const monthsInHindi = ["जनवरी", "फरवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"];
+    const daysInHindi = ["रवि", "सोम", "मंगल", "बुध", "गुरु", "शुक्र", "शनि"];
+    
+    const festivals2026 = {
+        "0-14": "मकर संक्रांति",
+        "1-15": "महाशिवरात्रि",
+        "2-3": "होली",
+        "2-20": "गुड़ी पड़वा",
+        "2-27": "राम नवमी",
+        "7-15": "स्वतंत्रता दिवस",
+        "7-28": "रक्षाबंधन",
+        "8-4": "जन्माष्टमी",
+        "9-11": "गणेश चतुर्थी",
+        "9-20": "दशहरा",
+        "10-8": "दीपावली",
+        "10-10": "भाई दूज"
+    };
+
+    const rashis = [
+        {n: "मेष", p: "आज का दिन शुभ है।"}, {n: "वृषभ", p: "धन लाभ के योग हैं।"},
+        {n: "मिथुन", p: "वाणी पर नियंत्रण रखें।"}, {n: "कर्क", p: "परिवार का साथ मिलेगा।"},
+        {n: "सिंह", p: "कार्यक्षेत्र में सफलता।"}, {n: "कन्या", p: "सेहत का ध्यान रखें।"},
+        {n: "तुला", p: "यात्रा के योग हैं।"}, {n: "वृश्चिक", p: "रुका हुआ काम बनेगा।"},
+        {n: "धनु", p: "धार्मिक रुचि बढ़ेगी।"}, {n: "मकर", p: "मेहनत रंग लाएगी।"},
+        {n: "कुंभ", p: "नए मित्र बनेंगे।"}, {n: "मीन", p: "आर्थिक उन्नति होगी।"}
+    ];
+
+    let currentDisplayDate = new Date(2026, 2, 22); // Start at March 2026
+
+    function init() {
+        renderCalendar();
+        renderRashifal();
+        renderFestivals();
+    }
+
+    function renderCalendar() {
+        const grid = document.getElementById('calendar-grid');
+        const monthYearLabel = document.getElementById('month-year');
+        grid.innerHTML = '';
+
+        const year = currentDisplayDate.getFullYear();
+        const month = currentDisplayDate.getMonth();
+
+        monthYearLabel.innerText = `${monthsInHindi[month]} ${year}`;
+
+        // Add Day Names
+        daysInHindi.forEach(d => {
+            const div = document.createElement('div');
+            div.className = 'day-name';
+            div.innerText = d;
+            grid.appendChild(div);
+        });
+
+        const firstDay = new Date(year, month, 1).getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // Empty slots for previous month days
+        for (let i = 0; i < firstDay; i++) {
+            grid.appendChild(document.createElement('div'));
+        }
+
+        // Days of current month
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'day';
+            if(d === 22 && month === 2) dayDiv.classList.add('today');
+            
+            const festKey = `${month}-${d}`;
+            let festHtml = '';
+            if(festivals2026[festKey]) {
+                dayDiv.classList.add('holiday');
+                festHtml = `<span class="festival-tag">${festivals2026[festKey]}</span>`;
+            }
+
+            dayDiv.innerHTML = `<b>${d}</b>${festHtml}`;
+            dayDiv.onclick = () => updatePanchang(d, month, year);
+            grid.appendChild(dayDiv);
+        }
+    }
+
+    function updatePanchang(d, m, y) {
+        document.getElementById('p-date').innerText = `${d} ${monthsInHindi[m]} ${y}`;
+        // In a real app, logic would change based on date. 
+        // Here we simulate values for demo.
+        const tithis = ["प्रतिपदा", "द्वितीया", "तृतीया", "चतुर्थी", "पंचमी", "एकादशी", "पूर्णिमा", "अमावस्या"];
+        document.getElementById('p-tithi').innerText = tithis[d % tithis.length];
+    }
+
+    function renderRashifal() {
+        const container = document.getElementById('rashifal-content');
+        rashis.forEach(r => {
+            container.innerHTML += `<div class="rashi-box"><b>${r.n}:</b> ${r.p}</div>`;
+        });
+    }
+
+    function renderFestivals() {
+        const list = document.getElementById('festival-list');
+        for (let key in festivals2026) {
+            const [m, d] = key.split('-');
+            list.innerHTML += `<li>${d} ${monthsInHindi[m]}: ${festivals2026[key]}</li>`;
+        }
+    }
+
+    function nextMonth() {
+        currentDisplayDate.setMonth(currentDisplayDate.getMonth() + 1);
+        renderCalendar();
+    }
+
+    function prevMonth() {
+        currentDisplayDate.setMonth(currentDisplayDate.getMonth() - 1);
+        renderCalendar();
+    }
+
+    init();
+</script>
+
+</body>
+  </html>
